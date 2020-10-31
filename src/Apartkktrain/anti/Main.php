@@ -53,10 +53,10 @@ class Main extends PluginBase implements Listener
 			$this->chat->set($name,"送信済み");
 			$this->chat->save();
 			$this->chat->reload();
-			$this->getScheduler()->scheduleRepeatingTask(new chatTask($name,$this->chat,3),20);
+			$this->getScheduler()->scheduleRepeatingTask(new chatTask($name,$this->chat,2),20);
 		}else{
 			$event->setCancelled();
-			$event->getPlayer()->sendMessage("§6[Anti-BAN]§a連投はお控えください。");
+			$event->getPlayer()->sendMessage("§6[Anti-BAN]§a連投はお控えください。2秒お待ちください。");
 		}
 	  }
 	public function onExplode(EntityExplodeEvent $event)
@@ -66,14 +66,6 @@ class Main extends PluginBase implements Listener
 	public function guardFarmland(BlockFormEvent $event)
 	{
 		$event->setCancelled();
-	}
-	public function onFly(PlayerToggleFlightEvent $event)
-	{
-		$player = $event->getPlayer();
-		if (!$player->isOp())
-		{
-			$player->isBanned();
-		}
 	}
 
 	  public function onDisable()
